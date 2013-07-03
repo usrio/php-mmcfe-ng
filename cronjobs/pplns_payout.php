@@ -37,7 +37,7 @@ if (empty($aAllBlocks)) {
 
 // We support some dynamic share targets but fall back to our fixed value
 if ($config['pplns']['shares']['type'] == 'blockavg' && $block->getBlockCount() > 0) {
-  $pplns_target = round($block->getAvgBlockShares($config['pplns']['type']['blockavg']['blockcount']));
+  $pplns_target = round($block->getAvgBlockShares($config['pplns']['blockavg']['blockcount']));
 } else {
   $pplns_target = $config['pplns']['shares']['default'] ;
 }
