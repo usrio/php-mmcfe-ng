@@ -44,10 +44,11 @@ foreach ($aAllBlocks as $iIndex => $aBlock) {
     $iRoundShares = $share->getRoundShares($iPreviousShareId, $aBlock['share_id']);
     $config['reward_type'] == 'block' ? $dReward = $aBlock['amount'] : $dReward = $config['reward'];
 
+    // Bail out if we have no shares for this block, should never happen
     if (empty($aAccountShares)) {
       verbose("\nNo shares found for this block\n\n");
       sleep(2);
-      continue;
+      exit;
     }
 
     // Table header for account shares
