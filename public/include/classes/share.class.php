@@ -96,7 +96,7 @@ class Share {
         a.id,
         SUBSTRING_INDEX( s.username , '.', 1 ) as username,
         IFNULL(SUM(IF(our_result='Y', 1, 0)), 0) AS valid,
-        IFNULLSUM(IF(our_result='N', 1, 0)), 0) AS invalid
+        IFNULL(SUM(IF(our_result='N', 1, 0)), 0) AS invalid
       FROM $this->table AS s
       LEFT JOIN " . $this->user->getTableName() . " AS a
       ON a.username = SUBSTRING_INDEX( s.username , '.', 1 )
@@ -169,8 +169,30 @@ class Share {
     return false;
   }
 
+  /**
+   * Allow users that disable archiving to purge shares with PPLNS
+   * @param from int Share ID to start from
+   * @param to int Share ID to delete to, default all (0)
+   * @return return bool true or false
+   **/
+  public function deleteArchivedShares($from, $to=0) {
+    if ($from <= 0) return true;
+    $stmt = $this->mysqli->prepare("DELETE FROM $this->tableArchive WHERE share_id >= ? AND share_id <= ?");
+    if ($this->checkStmt($stmt) && $stmt->bind_param('ii', $from, $to) && $stmt->execute())
+      return true;
+    // Catchall
+    echo $this->mysqli->error;
+    return false;
+  }
+
+  /**
+   * Delete shares that have been accounted for
+   * @param current_upstream int Share ID of this rounds winning share
+   * @param previous_upstream int Share ID of last rounds winning share
+   * @return return bool true on success, otherwise false
+   **/
   public function deleteAccountedShares($current_upstream, $previous_upstream=0) {
-    $stmt = $this->mysqli->prepare("DELETE FROM $this->table WHERE id BETWEEN ? AND ?");
+    $stmt = $this->mysqli->prepare("DELETE FROM $this->table WHERE id >= ? AND id <= ?");
     if ($this->checkStmt($stmt) && $stmt->bind_param('ii', $previous_upstream, $current_upstream) && $stmt->execute())
       return true;
     // Catchall
