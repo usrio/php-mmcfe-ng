@@ -136,20 +136,32 @@ foreach ($aAllBlocks as $iIndex => $aBlock) {
       verbose("\t$strStatus\n");
     }
 
+    debug("\nCleanup tasts ...");
     // Move counted shares to archive before this blockhash upstream share
+    debug(" move archive ...");
     $share->moveArchive($iCurrentUpstreamId, $aBlock['id'], $iPreviousShareId);
 
     // Delete all accounted shares
+    debug(" delete accounted shares ...");
     if (!$share->deleteAccountedShares($iCurrentUpstreamId, $iPreviousShareId)) {
       verbose("\nERROR : Failed to delete accounted shares from $iPreviousShareId to $iCurrentUpstreamId, aborting!\n");
       exit(1);
     }
 
+    // If we don't keep archives, delete some now to release disk space
+    if ($config['archive_shares'] && !$share->deleteArchivedShares($share->getMaxArchiveShareId() - (2 * $pplns_target))) {
+      debug(" cleanup archive ...");
+      verbose("\nERROR : Failed to delete archived shares, not critical but should be checked!\n");
+      sleep(2);
+    }
+
     // Mark this block as accounted for
+    debug(" mark block accounted ...");
     if (!$block->setAccounted($aBlock['id'])) {
       verbose("\nERROR : Failed to mark block as accounted! Aborting!\n");
     }
 
+    debug(" done\n");
     verbose("------------------------------------------------------------------------\n\n");
   }
 }
