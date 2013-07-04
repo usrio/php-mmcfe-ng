@@ -136,7 +136,7 @@ class Share {
       FROM $this->tableArchive AS s
       LEFT JOIN " . $this->user->getTableName() . " AS a
       ON a.username = SUBSTRING_INDEX( s.username , '.', 1 )
-      WHERE s.id BETWEEN ? AND ?
+      WHERE s.share_id BETWEEN ? AND ?
       GROUP BY username DESC
     ");
     if ($this->checkStmt($stmt) && $stmt->bind_param("ii", $left, $right) && $stmt->execute() && $result = $stmt->get_result()) {

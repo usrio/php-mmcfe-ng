@@ -52,29 +52,39 @@ foreach ($aAllBlocks as $iIndex => $aBlock) {
     $aRoundAccountShares = $share->getSharesForAccounts($iPreviousShareId, $aBlock['share_id']);
 
     if ($iRoundShares >= $pplns_target) {
-      verbose("Matching or exceeding PPLNS target of $pplns_target\n");
+      debug("Round shares $iRoundShares matching or exceeding PPLNS target of $pplns_target\n\n");
       $aAccountShares = $share->getSharesForAccounts($aBlock['share_id'] - $pplns_target + 1, $aBlock['share_id']);
     } else {
-      verbose("Not able to match PPLNS target of $pplns_target\n");
+      debug("Round shares $iRoundShares not able to match PPLNS target of $pplns_target\n\n");
       // We need to fill up with archived shares
       // Grab the full current round shares since we didn't match target
       $aAccountShares = $aRoundAccountShares;
       // Grab only the most recent shares from Archive that fill the missing shares
-      $aArchiveShares = $share->getArchiveShares($share->getMaxArchiveShareId() - ($pplns_target- $iRoundShares) + 1, $share->getMaxArchiveShareId());
+      $aArchiveShares = $share->getArchiveShares($share->getMaxArchiveShareId() - ($pplns_target - $iRoundShares) + 1, $share->getMaxArchiveShareId());
+
       // Add archived shares to users current shares, if we have any in archive
       if (is_array($aArchiveShares)) {
+        debug("Found archived shares to match target\n");
+        debug("  checking all active users for archived shares\n");
         foreach($aAccountShares as $key => $aData) {
+          debug("    " . $aData['username'] . " ... ");
           if (array_key_exists($aData['username'], $aArchiveShares)) {
+            debug($aArchiveShares[$aData['username']]['valid'] . " vaild, " . $aArchiveShares[$aData['username']]['invalid'] . " invalid\n");
             $aAccountShares[$key]['valid'] += $aArchiveShares[$aData['username']]['valid'];
             $aAccountShares[$key]['invalid'] += $aArchiveShares[$aData['username']]['invalid'];
+          } else {
+            debug(" no shares in archive to match target\n");
           }
+          debug("\n");
         }
       }
     }
+
+    // Bail out if we have no shares at all, should never happen
     if (empty($aAccountShares)) {
       verbose("\nNo shares found for this block\n\n");
       sleep(2);
-      continue;
+      exit;
     }
 
     // Table header for account shares
@@ -111,6 +121,7 @@ foreach ($aAllBlocks as $iIndex => $aBlock) {
           if (!$statistics->updateShareStatistics($aRoundData, $aBlock['id']))
             $strStatus = "Stats Failed";
       }
+
       // Add new credit transaction
       if (!$transaction->addTransaction($aData['id'], $aData['payout'], 'Credit', $aBlock['id']))
         $strStatus = "Transaction Failed";
@@ -127,11 +138,13 @@ foreach ($aAllBlocks as $iIndex => $aBlock) {
 
     // Move counted shares to archive before this blockhash upstream share
     $share->moveArchive($iCurrentUpstreamId, $aBlock['id'], $iPreviousShareId);
+
     // Delete all accounted shares
     if (!$share->deleteAccountedShares($iCurrentUpstreamId, $iPreviousShareId)) {
       verbose("\nERROR : Failed to delete accounted shares from $iPreviousShareId to $iCurrentUpstreamId, aborting!\n");
       exit(1);
     }
+
     // Mark this block as accounted for
     if (!$block->setAccounted($aBlock['id'])) {
       verbose("\nERROR : Failed to mark block as accounted! Aborting!\n");
