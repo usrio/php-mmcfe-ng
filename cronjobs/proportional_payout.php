@@ -97,17 +97,25 @@ foreach ($aAllBlocks as $iIndex => $aBlock) {
     }
 
     // Move counted shares to archive before this blockhash upstream share
-    if ($config['archive_shares']) $share->moveArchive($iCurrentUpstreamId, $aBlock['id'], $iPreviousShareId);
+    $share->moveArchive($iCurrentUpstreamId, $aBlock['id'], $iPreviousShareId);
+
     // Delete all accounted shares
     if (!$share->deleteAccountedShares($iCurrentUpstreamId, $iPreviousShareId)) {
       verbose("\nERROR : Failed to delete accounted shares from $iPreviousShareId to $iCurrentUpstreamId, aborting!\n");
       exit(1);
     }
+
+    if (!$share->purgeArchive()) {
+      verbose("\nERROR : Failed to delete archived shares, not critical but should be checked!\n");
+      sleep(2);
+    }
+
     // Mark this block as accounted for
     if (!$block->setAccounted($aBlock['id'])) {
       verbose("\nERROR : Failed to mark block as accounted! Aborting!\n");
     }
 
     verbose("------------------------------------------------------------------------\n\n");
+    exit;
   }
 }

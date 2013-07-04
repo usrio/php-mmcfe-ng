@@ -13,10 +13,12 @@ class Share {
   // This defines each share
   public $rem_host, $username, $our_result, $upstream_result, $reason, $solution, $time;
 
-  public function __construct($debug, $mysqli, $user) {
+  public function __construct($debug, $mysqli, $user, $block, $config) {
     $this->debug = $debug;
     $this->mysqli = $mysqli;
     $this->user = $user;
+    $this->block = $block;
+    $this->config = $config;
     $this->debug->append("Instantiated Share class", 2);
   }
 
@@ -170,18 +172,28 @@ class Share {
   }
 
   /**
-   * Allow users that disable archiving to purge shares with PPLNS
-   * @param from int Share ID to start from
-   * @param to int Share ID to delete to, default all (0)
+   * We keep shares only up to a certain point
+   * This can be configured by the user.
    * @return return bool true or false
    **/
-  public function deleteArchivedShares($from, $to=0) {
-    if ($from <= 0) return true;
-    $stmt = $this->mysqli->prepare("DELETE FROM $this->tableArchive WHERE share_id >= ? AND share_id <= ?");
-    if ($this->checkStmt($stmt) && $stmt->bind_param('ii', $from, $to) && $stmt->execute())
-      return true;
+  public function purgeArchive() {
+    if ($this->config['payout_system'] == 'pplns') {
+      // Fetch our last block so we can go back configured rounds
+      $aLastBlock = $this->block->getLast();
+      // Fetch the block we need to find the share_id
+      $aBlock = $this->block->getBlock($aLastBlock['height'] - $this->config['archive']['maxrounds']);
+
+      // Now that we know our block, remove those shares
+      $stmt = $this->mysqli->prepare("DELETE FROM $this->tableArchive WHERE block_id < ?");
+      if ($this->checkStmt($stmt) && $stmt->bind_param('i', $aBlock['id']) && $stmt->execute())
+        return true;
+    } else {
+      // We are not running pplns, so we just need to keep shares of the past <interval> minutes
+      $stmt = $this->mysqli->prepare("DELETE FROM $this->tableArchive WHERE time < DATE_SUB(now(), INTERVAL ? MINUTE)");
+      if ($this->checkStmt($stmt) && $stmt->bind_param('i', $config['archive']['maxage']) && $stmt->execute())
+        return true;
+    }
     // Catchall
-    echo $this->mysqli->error;
     return false;
   }
 
@@ -252,4 +264,4 @@ class Share {
   }
 }
 
-$share = new Share($debug, $mysqli, $user);
+$share = new Share($debug, $mysqli, $user, $block, $config);

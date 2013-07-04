@@ -149,7 +149,7 @@ foreach ($aAllBlocks as $iIndex => $aBlock) {
     }
 
     // If we don't keep archives, delete some now to release disk space
-    if ($config['archive_shares'] && !$share->deleteArchivedShares($share->getMaxArchiveShareId() - (2 * $pplns_target))) {
+    if (!$share->purgeArchive()) {
       debug(" cleanup archive ...");
       verbose("\nERROR : Failed to delete archived shares, not critical but should be checked!\n");
       sleep(2);

@@ -157,8 +157,24 @@ $config['block_bonus'] = 0;
 **/
 $config['payout_system'] = 'prop';
 
-// For debugging purposes you can archive shares in the archive_shares table, default: true
-$config['archive_shares'] = true;
+/**
+ * Archiving configuration for debugging
+ *
+ * Explanation:
+ *   By default, we don't need to archive for a long time. PPLNS and Hashrate
+ *   calculations rely on this archive, but all shares past a certain point can
+ *   safely be deleted.
+ *
+ * Availabe Options:
+ *   maxrounds  :  PPLNS, keep shares for maxrounds
+ *   maxage     :  PROP, delete shares older than maxage minutes
+ *
+ * Default:
+ *   maxrounds  =  3
+ *   maxage     =  10
+ **/
+$config['archive']['maxrounds'] = 3;
+$config['archive']['maxage'] = 10;
 
 // URL prefix for block searches, used for block links, default: `http://explorer.litecoin.net/search?q=`
 $config['blockexplorer'] = 'http://explorer.litecoin.net/search?q=';
@@ -171,25 +187,25 @@ $config['chaininfo'] = 'http://allchains.info';
 $config['fees'] = 0;
 
 /**
-  *  PPLNS requires some settings to run properly. First we need to define
-  *  a default shares count that is applied if we don't have a proper type set.
-  *  Different dynamic types can be applied, or you can run a fixed scheme.
-  *
-  *  Explanation
-  *   default     :  Default target shares for PPLNS
-  *   type        :  Payout type used in PPLNS
-  *   blockcount  :  Amount of blocks to check for avg shares
-  *
-  *  Available Options:
-  *   default     :  amount of shares, integeger
-  *   type        :  blockavg or fixed
-  *   blockcount  :  amount of blocks, any integer
-  *
-  *  Defaults:
-  *   default     =  4000000
-  *   type        =  `blockavg`
-  *   blockcount  =  10
-  **/
+ *  PPLNS requires some settings to run properly. First we need to define
+ *  a default shares count that is applied if we don't have a proper type set.
+ *  Different dynamic types can be applied, or you can run a fixed scheme.
+ *
+ *  Explanation
+ *   default     :  Default target shares for PPLNS
+ *   type        :  Payout type used in PPLNS
+ *   blockcount  :  Amount of blocks to check for avg shares
+ *
+ *  Available Options:
+ *   default     :  amount of shares, integeger
+ *   type        :  blockavg or fixed
+ *   blockcount  :  amount of blocks, any integer
+ *
+ *  Defaults:
+ *   default     =  4000000
+ *   type        =  `blockavg`
+ *   blockcount  =  10
+ **/
 $config['pplns']['shares']['default'] = 4000000;
 $config['pplns']['shares']['type'] = 'blockavg';
 $config['pplns']['blockavg']['blockcount'] = 10;

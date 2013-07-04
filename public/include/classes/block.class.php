@@ -34,12 +34,20 @@ class Block {
    **/
   public function getLast() {
     $stmt = $this->mysqli->prepare("SELECT * FROM $this->table ORDER BY height DESC LIMIT 1");
-    if ($this->checkStmt($stmt)) {
-      $stmt->execute();
-      $result = $stmt->get_result();
-      $stmt->close();
+    if ($this->checkStmt($stmt) && $stmt->execute() && $result = $stmt->get_result())
       return $result->fetch_assoc();
-    }
+    return false;
+  }
+
+  /**
+   * Get a specific block, by block height
+   * @param height int Block Height
+   * @return data array Block information from DB
+   **/
+  public function getBlock($height) {
+    $stmt = $this->mysqli->prepare("SELECT * FROM $this->table WHERE height = ? LIMIT 1");
+    if ($this->checkStmt($stmt) && $stmt->bind_param('i', $height) && $stmt->execute() && $result = $stmt->get_result())
+      return $result->fetch_assoc();
     return false;
   }
 
