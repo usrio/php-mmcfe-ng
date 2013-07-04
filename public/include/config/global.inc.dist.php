@@ -163,17 +163,24 @@ $config['payout_system'] = 'prop';
  * Explanation:
  *   By default, we don't need to archive for a long time. PPLNS and Hashrate
  *   calculations rely on this archive, but all shares past a certain point can
- *   safely be deleted.
+ *   safely be deleted. To ensure we have enough shares on stack for PPLNS, this
+ *   is set to the past 10 rounds. Even with lucky ones in between those should
+ *   fit the PPLNS target.
+ *
+ *   Proportional mode will only keep the past 10 minutes. These are required for
+ *   hashrate calculations to work past a round, hence 10 minutes was selected as
+ *   the default. You may want to increase the time for debugging, then add any
+ *   integer reflecting minutes of shares to keep.
  *
  * Availabe Options:
  *   maxrounds  :  PPLNS, keep shares for maxrounds
  *   maxage     :  PROP, delete shares older than maxage minutes
  *
  * Default:
- *   maxrounds  =  3
+ *   maxrounds  =  10
  *   maxage     =  10
  **/
-$config['archive']['maxrounds'] = 3;
+$config['archive']['maxrounds'] = 10;
 $config['archive']['maxage'] = 10;
 
 // URL prefix for block searches, used for block links, default: `http://explorer.litecoin.net/search?q=`
