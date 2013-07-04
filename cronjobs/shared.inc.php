@@ -32,15 +32,23 @@ require_once(BASEPATH . 'include/config/global.inc.php');
 require_once(INCLUDE_DIR . '/autoloader.inc.php');
 
 // Parse command line
-$options = getopt("v");
+$options = getopt("vd");
 if (array_key_exists('v', $options)) {
-  define("VERBOSE", true);
+  define("VERBOSE_CRON", true);
 } else {
-  define("VERBOSE", false);
+  define("VERBOSE_CRON", false);
+}
+if (array_key_exists('d', $options)) {
+  define("DEBUG_CRON", true);
+} else {
+  define("DEBUG_CRON", false);
 }
 
 // Command line cron functions only
 function verbose($msg) {
-  if (VERBOSE) echo $msg;
+  if (VERBOSE_CRON) echo $msg;
+}
+function debug($msg) {
+  if (DEBUG_CRON) echo $msg;
 }
 
