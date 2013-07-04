@@ -75,8 +75,8 @@ foreach ($aAllBlocks as $iIndex => $aBlock) {
           } else {
             debug(" no shares in archive to match target\n");
           }
-          debug("\n");
         }
+        debug("\n");
       }
     }
 

@@ -163,9 +163,13 @@ $config['payout_system'] = 'prop';
  * Explanation:
  *   By default, we don't need to archive for a long time. PPLNS and Hashrate
  *   calculations rely on this archive, but all shares past a certain point can
- *   safely be deleted. To ensure we have enough shares on stack for PPLNS, this
+ *   safely be deleted.
+ *
+ *   To ensure we have enough shares on stack for PPLNS, this
  *   is set to the past 10 rounds. Even with lucky ones in between those should
- *   fit the PPLNS target.
+ *   fit the PPLNS target. On top of that, even if we have more than 10 rounds,
+ *   we still keep the last maxage shares to ensure we can calculate hashrates.
+ *   Both conditions need to be met in order for shares to be purged from archive.
  *
  *   Proportional mode will only keep the past 10 minutes. These are required for
  *   hashrate calculations to work past a round, hence 10 minutes was selected as
@@ -174,7 +178,7 @@ $config['payout_system'] = 'prop';
  *
  * Availabe Options:
  *   maxrounds  :  PPLNS, keep shares for maxrounds
- *   maxage     :  PROP, delete shares older than maxage minutes
+ *   maxage     :  PROP and PPLNS, delete shares older than maxage minutes
  *
  * Default:
  *   maxrounds  =  10

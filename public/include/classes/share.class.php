@@ -184,8 +184,8 @@ class Share {
       $aBlock = $this->block->getBlock($aLastBlock['height'] - $this->config['archive']['maxrounds']);
 
       // Now that we know our block, remove those shares
-      $stmt = $this->mysqli->prepare("DELETE FROM $this->tableArchive WHERE block_id < ?");
-      if ($this->checkStmt($stmt) && $stmt->bind_param('i', $aBlock['id']) && $stmt->execute())
+      $stmt = $this->mysqli->prepare("DELETE FROM $this->tableArchive WHERE block_id < ? AND time < DATE_SUB(now(), INTERVAL ? MINUTE)");
+      if ($this->checkStmt($stmt) && $stmt->bind_param('ii', $aBlock['id'], $config['archive']['maxage']) && $stmt->execute())
         return true;
     } else {
       // We are not running pplns, so we just need to keep shares of the past <interval> minutes
