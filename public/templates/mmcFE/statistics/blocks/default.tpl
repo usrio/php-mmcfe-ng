@@ -63,12 +63,12 @@ target and network difficulty and assuming a zero variance scenario.
         <td class="right">{$BLOCKSFOUND[block].amount|number_format:"2"}</td>
         <td class="right">
           {math assign="estshares" equation="(pow(2,32 - targetdiff) * blockdiff)" targetdiff=$GLOBAL.config.targetdiff blockdiff=$BLOCKSFOUND[block].difficulty}
-          {$estshares}
+          {$estshares|number_format}
         </td>
         <td class="right">{$BLOCKSFOUND[block].shares|number_format}</td>
         <td class="right">
           {math assign="percentage" equation="shares / estshares * 100" shares=$BLOCKSFOUND[block].shares estshares=$estshares}
-          <font color="{if ($percentage <= 100)}green{else}red{/if}">{$percentage}</font>
+          <font color="{if ($percentage <= 100)}green{else}red{/if}">{$percentage|number_format:"2"}</font>
         </td>
       </tr>
 {/section}
