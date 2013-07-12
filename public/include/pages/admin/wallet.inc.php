@@ -9,16 +9,23 @@ if (!$user->isAuthenticated() || !$user->isAdmin($_SESSION['USERDATA']['id'])) {
   die("404 Page not found");
 }
 
-if ($bitcoin->can_connect() === true){
-  $dBalance = $bitcoin->query('getbalance');
-  $dConnection = $bitcoin->query('getconnectioncount');
+if (!$smarty->isCached('master.tpl', $smarty_cache_key)) {
+  $debug->append('No cached version available, fetching from backend', 3);
+  if ($bitcoin->can_connect() === true){
+    $dBalance = $bitcoin->query('getbalance');
+    $dConnection = $bitcoin->query('getconnectioncount');
+  } else {
+    $dBalance = 0;
+    $_SESSION['POPUP'][] = array('CONTENT' => 'Unable to connect to wallet RPC service: ' . $bitcoin->can_connect(), 'TYPE' => 'errormsg');
+  }
+  // Fetch locked balance from transactions
+  $dLockedBalance = $transaction->getLockedBalance();
 } else {
-  $dBalance = 0;
-  $_SESSION['POPUP'][] = array('CONTENT' => 'Unable to connect to wallet RPC service: ' . $bitcoin->can_connect(), 'TYPE' => 'errormsg');
+  $debug->append('Using cached page', 3);
 }
 
 $smarty->assign("BALANCE", $dBalance);
-$smarty->assign("LOCKED", $transaction->getLockedBalance());
+$smarty->assign("LOCKED", $dLockedBalance);
 $smarty->assign("CONNECT", $dConnection);
 // Tempalte specifics
 $smarty->assign("CONTENT", "default.tpl");

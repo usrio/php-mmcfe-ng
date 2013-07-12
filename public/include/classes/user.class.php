@@ -387,7 +387,16 @@ class User {
    **/
   public function logoutUser($redirect="index.php") {
     $this->debug->append("STA " . __METHOD__, 4);
+    // Unset all of the session variables
+    $_SESSION = array();
+    // As we're killing the sesison, also kill the cookie!
+    if (ini_get("session.use_cookies")) {
+        $params = session_get_cookie_params();
+        setcookie(session_name(), '', time() - 42000, $params["path"], $params["domain"], $params["secure"], $params["httponly"]);
+    }
+    // Destroy the session.
     session_destroy();
+    // Enforce generation of a new Session ID and delete the old
     session_regenerate_id(true);
     // Enforce a page reload
     header("Location: $redirect");
@@ -442,6 +451,10 @@ class User {
    **/
   public function register($username, $password1, $password2, $pin, $email1='', $email2='') {
     $this->debug->append("STA " . __METHOD__, 4);
+    if (strlen($username > 40)) {
+      $this->setErrorMessage('Username exceeding character limit');
+      return false;
+    }
     if ($this->getEmail($email1)) {
       $this->setErrorMessage( 'This e-mail address is already taken' );
       return false;
@@ -482,8 +495,9 @@ class User {
     $password_hash = $this->getHash($password1);
     $pin_hash = $this->getHash($pin);
     $apikey_hash = $this->getHash($username);
+    $username_clean = strip_tags($username);
 
-    if ($this->checkStmt($stmt) && $stmt->bind_param('sssss', $username, $password_hash, $email1, $pin_hash, $apikey_hash)) {
+    if ($this->checkStmt($stmt) && $stmt->bind_param('sssss', $username_clean, $password_hash, $email1, $pin_hash, $apikey_hash)) {
       if (!$stmt->execute()) {
         $this->setErrorMessage( 'Unable to register' );
         if ($stmt->sqlstate == '23000') $this->setErrorMessage( 'Username or email already registered' );

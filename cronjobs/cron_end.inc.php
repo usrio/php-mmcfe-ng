@@ -1,4 +1,3 @@
-#!/usr/bin/php
 <?php
 
 /*
@@ -19,19 +18,11 @@ limitations under the License.
 
  */
 
-// Include all settings and classes
-require_once('shared.inc.php');
-
-// Include additional file not set in autoloader
-require_once(CLASS_DIR . '/tools.class.php');
-
-if ($price = $tools->getPrice()) {
-  $log->logInfo("Price update: found $price as price");
-  if (!$setting->setValue('price', $price))
-    $log->logError("unable to update value in settings table");
-} else {
-  $log->logFatal("failed to fetch API data: " . $tools->getError());
-}
-
-require_once('cron_end.inc.php');
+// Monitoring cleanup and status update
+$monitoring->setStatus($cron_name . "_message", "message", "OK");
+$monitoring->setStatus($cron_name . "_status", "okerror", 0);
+$monitoring->setStatus($cron_name . "_runtime", "time", microtime(true) - $cron_start[$cron_name]);
+$monitoring->setStatus($cron_name . "_lastrun", "date", time());
+// Mark cron as running for monitoring
+$monitoring->setStatus($cron_name . '_active', "yesno", 0);
 ?>
