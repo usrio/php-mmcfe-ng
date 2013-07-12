@@ -5,7 +5,7 @@ if (!defined('SECURITY')) die('Hacking attempt');
 if (!$user->isAuthenticated()) header("Location: index.php?page=home");
 
 // Grab the last blocks found
-$iLimit = 20;
+$iLimit = 100;
 $aBlocksFoundData = $statistics->getBlocksFound($iLimit);
 
 // Propagate content our template

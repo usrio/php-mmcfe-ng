@@ -12,5 +12,9 @@
     <th>Liquid Assets</th>
     <td class="right">{($BALANCE - $LOCKED)|number_format:"8"}</td>
   </tr>
+  <tr>
+    <th>Connections</th>
+    <td class="right">{$CONNECT}</td>
+  </tr>
 </table>
 {include file="global/block_footer.tpl"}

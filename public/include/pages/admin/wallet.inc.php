@@ -11,6 +11,7 @@ if (!$user->isAuthenticated() || !$user->isAdmin($_SESSION['USERDATA']['id'])) {
 
 if ($bitcoin->can_connect() === true){
   $dBalance = $bitcoin->query('getbalance');
+  $dConnection = $bitcoin->query('getconnectioncount');
 } else {
   $dBalance = 0;
   $_SESSION['POPUP'][] = array('CONTENT' => 'Unable to connect to wallet RPC service: ' . $bitcoin->can_connect(), 'TYPE' => 'errormsg');
@@ -18,7 +19,7 @@ if ($bitcoin->can_connect() === true){
 
 $smarty->assign("BALANCE", $dBalance);
 $smarty->assign("LOCKED", $transaction->getLockedBalance());
-
+$smarty->assign("CONNECT", $dConnection);
 // Tempalte specifics
 $smarty->assign("CONTENT", "default.tpl");
 ?>

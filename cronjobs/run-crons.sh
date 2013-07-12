@@ -13,7 +13,7 @@ PHP_BIN=$( which php )
 PIDFILE='/tmp/mmcfe-ng-cron.pid'
 
 # Location of our cronjobs, assume current directory
-CRONHOME='.'
+CRONHOME='/var/www/cronjobs'
 
 # List of cruns to execute
 CRONS="findblock.php proportional_payout.php pps_payout.php blockupdate.php auto_payout.php tickerupdate.php notifications.php statistics.php"
@@ -22,7 +22,7 @@ CRONS="findblock.php proportional_payout.php pps_payout.php blockupdate.php auto
 CRONARGS="-v"
 
 # Output additional runtime information
-VERBOSE="0"
+VERBOSE="1"
 
 ################################################################
 #                                                              #

@@ -42,7 +42,7 @@ class Mail {
     $this->smarty->assign('WEBSITENAME', $this->config['website']['name']);
     $this->smarty->assign('SUBJECT', $aData['subject']);
     $this->smarty->assign('DATA', $aData);
-    $headers = 'From: Website Administration <' . $this->config['website']['email'] . ">\n";
+    $headers = 'From: Anoncoin Pool anc.usr.io <' . $this->config['website']['email'] . ">\n";
     $headers .= "MIME-Version: 1.0\n";
     $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
     if (mail($aData['email'],
