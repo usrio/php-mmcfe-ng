@@ -1,3 +1,10 @@
 RedirectMatch 404 /templates(/|$)
 RedirectMatch 404 /include(/|$)
 RedirectMatch 404 /.git(/|$)
+
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^fst\.usr\.io
+RewriteRule ^(.*)$ http://anc.usr.io/$1 [R=permanent,L] 
+
+RewriteCond %{HTTP_HOST} ^mec\.usr\.io
+RewriteRule ^(.*)$ http://anc.usr.io/$1 [R=permanent,L]
