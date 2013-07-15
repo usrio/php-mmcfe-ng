@@ -60,6 +60,7 @@ a.menu:hover{
   font-size: 11px;
   font-weight: bold;
   color: #000;
+  list-style-image: url("/site_assets/mmcFE/images/anoncoin.png");
 }
 
 #loginForm{
