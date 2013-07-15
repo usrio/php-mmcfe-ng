@@ -28,7 +28,6 @@ a:hover {
 }	
 
 #hld {
-  /*	background: url(../images/hld.jpg) 0 0 repeat-x; */
   min-height: 402px;
 }
 
@@ -54,7 +53,7 @@ a:hover {
 #header {
   height: 35px;
   line-height: 35px;
-  background: url(../images/hdr.gif) 0 0 repeat-x;
+  background: #11248a;
   color: #ccc;
   font-weight: bold;
   margin-top: -15px;
@@ -68,14 +67,12 @@ a:hover {
   width: 20px;
   height: 35px;
   float: left;
-  background: url(../images/hdrl.gif) top left no-repeat;
 }
 
 #header .hdrr {
   width: 20px;
   height: 35px;
   float: right;
-  background: url(../images/hdrr.gif) top right no-repeat;
 }
 
 #header a {
@@ -111,6 +108,7 @@ a:hover {
   height: 35px;
   padding: 0;
   float: left;
+  background: #11248a;
 }
 
 #header #nav li {
@@ -123,8 +121,8 @@ a:hover {
   position: relative;
   height: 35px;
   padding: 0 0px;
-  background: url(../images/nsp.gif) center right no-repeat;
   line-height: 35px;
+  background: #11248a;
 }
 
 #header #nav li.nobg { background: none; }
@@ -139,6 +137,7 @@ a:hover {
   position: absolute;
   top: 35px;
   left: 0;
+  background: #11248a;
 }
 
 #header #nav ul:after /*From IE 7 lack of compliance*/{
@@ -174,7 +173,7 @@ a:hover {
   padding: 0 10px;
 }
 
-#header #nav li.active a { color: #ddd; }
+#header #nav li.active a { color: #fff; }
 #header #nav li.active a:hover { color: #fff; }
 
 #header #nav a.hasmore {
@@ -185,7 +184,7 @@ a:hover {
 #header #nav a:hover,
 #header #nav li:hover a,
 #header #nav li.iehover a {
-  color: #0096db;
+  color: #fff;
 }
 
 /* 2nd Menu */
@@ -197,7 +196,6 @@ a:hover {
   font-weight: bold;
   line-height: 30px;
   color: #fff;
-  background: url(../images/mbg.png) 0 0 repeat;
 }
 
 /* 2nd Menu Hover Persistence */
@@ -205,16 +203,14 @@ a:hover {
 #header #nav li:hover li:hover a,
 #header #nav li.iehover li a:hover,
 #header #nav li.iehover li.iehover a {
-  color: #0096db;
-  background: #000;
+  color: #fff;
 }
 
 /* 3rd Menu */
 #header #nav li:hover li:hover li a,
 #header #nav li.iehover li.iehover li a {
   float: none;
-  color: #ccc;
-  background: url(../images/mbg.png) 0 0 repeat;
+  color: #fff;
 }
 
 /* 3rd Menu Hover Persistence */
@@ -229,8 +225,8 @@ a:hover {
 /* 4th Menu */
 #header #nav li:hover li:hover li:hover li a,
 #header #nav li.iehover li.iehover li.iehover li a {
-  color: #ccc;
-  background: url(../images/mbg.png) 0 0 repeat;
+  color: #fff;
+
 }
 
 /* 4th Menu Hover */
@@ -280,20 +276,18 @@ a:hover {
   padding-bottom: 5px;
   margin-bottom: 25px;
   clear: both;
-  background: #fff url(../images/bnd.gif) bottom center repeat-x;
+  border: 1px solid #DECEAD;
 }
 
 .block .bendl {
   width: 5px;
   height: 5px;
-  background: url(../images/bendl.gif) bottom left no-repeat;
   float: left;
 }
 
 .block .bendr {
   width: 5px;
   height: 5px;
-  background: url(../images/bendr.gif) bottom left no-repeat;
   float: right;
 }
 
@@ -305,7 +299,7 @@ a:hover {
   height: 35px;
   /*	line-height: 54px;	*/
   line-height: 35px;
-  background: url(../images/bhead.gif) 0 0 repeat-x;
+  background: #DECEAD;
   overflow: hidden;
 
   border-style: solid solid solid solid;
@@ -318,14 +312,14 @@ a:hover {
   width: 20px;
   height: 35px;
   float: left;
-  background: url(../images/bheadl.gif) top left no-repeat;
+  background: #DECEAD;
 }
 
 .block .block_head .bheadr {
   width: 20px;
   height: 35px;
   float: right;
-  background: url(../images/bheadr.gif) top right no-repeat;
+  background: #DECEAD;
 }
 
 .block .block_head h2 {
@@ -351,7 +345,6 @@ a:hover {
   display: inline;
   padding: 3px 0;
   padding-left: 20px;
-  background: url(../images/phs.gif) 7px center no-repeat;
 }
 
 .block .block_head ul li.nobg { background: none; }
@@ -380,12 +373,10 @@ a:hover {
   font-size: 11px;
   color: #999;
   margin: 0;
-  background: url(../images/srch.gif) left center no-repeat;
 }
 
 .block .block_head form .text:focus {
   color: #666;
-  background: url(../images/srch_.gif) left center no-repeat;
 }
 
 .block .block_head select {
@@ -446,12 +437,10 @@ a:hover {
 
 .block table tr th.headerSortUp {
   color: #333;
-  background: url(../images/sortd.gif) 95% center no-repeat;
 }
 
 .block table tr th.headerSortDown {
   color: #333;
-  background: url(../images/sorta.gif) 95% center no-repeat;
 }
 
 .block table tr td.delete {
@@ -542,7 +531,6 @@ a:hover {
 .block .block_content ul li {
   margin-bottom: 5px;
   padding-left: 15px;
-  background: url(../images/li.gif) 0 7px no-repeat;
 }
 
 .block .block_content ol li {
@@ -841,7 +829,6 @@ a:hover {
 .block.small.left { float: left; clear: none; }
 .block.small.right { float: right; clear: none; }
 
-.block.small .block_head { background: url(../images/bhead.gif) 0 0 repeat-x; }
 .block.small .block_content { background: #fff; border-left: 1px solid #ccc; border-right: 1px solid #ccc; }
 
 .block.small .block_content input.text,
@@ -868,13 +855,11 @@ a:hover {
 
 .block.withsidebar .bendl {
   width: 191px;	
-  background: url(../images/bendsb.gif) bottom left no-repeat;
 }
 
 .block.withsidebar .block_content {
   overflow: hidden;
   padding: 0;
-  /*	background: url(../images/sidebar.gif) 0 0 repeat-y;	*/
 }
 
 .block.withsidebar .block_content .sidebar {
@@ -961,7 +946,6 @@ a:hover {
 .block .block_content .imglist li ul {
   position: absolute;
   z-index: 10;
-  background: url(../images/imgo.gif) center no-repeat;
   width: 62px;
   height: 58px;
   left: 20px;
@@ -1003,7 +987,6 @@ a:hover {
 /* Footer */
 
 #footer {
-  /*	background: url(../images/ft.gif) 0 0 repeat-x;	*/
   padding: 0px 0 0px;
   font-size: 10px;
   color: #757575;

@@ -2,7 +2,7 @@
 <center>
   <table width="100%" style="font-size:13px;">
     <thead>
-      <tr style="background-color:#B6DAFF;">
+      <tr>
         <th class="center">Block</th>
         <th>Finder</th>
         <th class="center">Time</th>

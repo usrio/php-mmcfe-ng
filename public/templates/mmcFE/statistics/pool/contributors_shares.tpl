@@ -2,7 +2,7 @@
 <center>
   <table width="100%" border="0" style="font-size:13px;">
     <thead>
-      <tr style="background-color:#B6DAFF;">
+      <tr>
         <th align="left">Rank</th>
         <th scope="col">User Name</th>
         <th class="right" scope="col">Shares</th>
@@ -12,7 +12,7 @@
 {assign var=rank value=1}
 {assign var=listed value=0}
 {section hashrate $CONTRIBSHARES}
-      <tr{if $GLOBAL.userdata.username == $CONTRIBSHARES[hashrate].account}{assign var=listed value=1} style="background-color:#99EB99;"{else} class="{cycle values="odd,even"}"{/if}>
+      <tr{if $GLOBAL.userdata.username == $CONTRIBSHARES[hashrate].account}{assign var=listed value=1} style="background-color:#B8BEDC;"{else} class="{cycle values="odd,even"}"{/if}>
         <td>{$rank++}</td>
         <td>{if $CONTRIBHASHES[hashrate].is_anonymous|default:"0" == 1}anonymous{else}{$CONTRIBSHARES[hashrate].account|escape}{/if}</td>
         <td class="right">{$CONTRIBSHARES[hashrate].shares|number_format}</td>

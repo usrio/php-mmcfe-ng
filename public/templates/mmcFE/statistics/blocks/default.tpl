@@ -34,7 +34,7 @@ target and network difficulty and assuming a zero variance scenario.
 <center>
   <table width="100%" style="font-size:13px;">
     <thead>
-      <tr style="background-color:#B6DAFF;">
+      <tr>
         <th class="center">Block</th>
         <th class="center">Validity</th>
         <th>Finder</th>
