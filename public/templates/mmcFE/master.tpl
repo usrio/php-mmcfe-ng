@@ -5,27 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=7" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="favicon.ico" />
-    <link rel="stylesheet" href="{$PATH}/css/mainstyle.css" type="text/css" />
+    <link rel="stylesheet" href="//anc.usr.io/min/?b=site_assets/mmcFE/css&f=mainstyle.css,style.css,jquery.wysiwyg.css,facebox.css,visualize.css,date_input.css" type="text/css" />
     <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-    <script src="{$PATH}/js/jquery.browser.js"></script>
-    <script src="{$PATH}/js/jquery.tablesorter.min.js"></script>
-    <script src="{$PATH}/js/jquery.tablesorter.pager.js"></script>
-    <script src="{$PATH}/js/jquery.visualize.js"></script>
-    <script src="{$PATH}/js/jquery.tooltip.visualize.js"></script>
-    <script src="{$PATH}/js/custom.js"></script>
-    <script src="{$PATH}/js/tools.js"></script>
-    <script src="{$PATH}/js/addon.js"></script>
+    <script src="//anc.usr.io/min/?b=site_assets/mmcFE/js&f=jquery.browser.js,jquery.tablesorter.min.js,jquery.tablesorter.pager.js,jquery.visualize.js,jquery.tooltip.visualize.js,custom.js,tools.js,addon.js"></script>
     <!--[if IE]><script type="text/javascript" src="{$PATH}/js/excanvas.js"></script><![endif]-->
-    <style type="text/css" media="all">
-      @import url("{$PATH}/css/style.css");
-      @import url("{$PATH}/css/jquery.wysiwyg.css");
-      @import url("{$PATH}/css/facebox.css");
-      @import url("{$PATH}/css/visualize.css");
-      @import url("{$PATH}/css/date_input.css");
-    </style>
     <!--[if lt IE 8]><style type="text/css" media="all">@import url("{$PATH}/css/ie.css");</style><![endif]-->
   </head>
-
 <body>
 <div id="hld">
   <div class="wrapper">
@@ -38,7 +23,6 @@
     <div id="header">
       {include file="global/navigation.tpl"}
     </div>
-
     <div class="block withsidebar">
       <div class="block_head">
         <div class="bheadl"></div>
