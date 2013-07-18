@@ -7,6 +7,7 @@
                 <li><a href="/?page=account&action=workers">My Workers</a></li>
                 <li><a href="/?page=account&action=transactions">Transactions</a></li>
                 <li><a href="/?page=account&action=notifications">Notifications</a></li>
+                {if !$GLOBAL.config.disable_invitations}<li><a href="/?page=account&action=invitations">Invitations</a></li>{/if}
               </ul>
             </li>
             {/if}
