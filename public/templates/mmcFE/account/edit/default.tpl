@@ -6,12 +6,12 @@
       <table>
         <tbody><tr><td>Username: </td><td>{$GLOBAL.userdata.username|escape}</td></tr>
         <tr><td>User Id: </td><td>{$GLOBAL.userdata.id}</td></tr>
-        <tr><td>API Key: </td><td><a href="{$smarty.server.PHP_SELF}?page=api&action=getuserstatus&api_key={$GLOBAL.userdata.api_key}&id={$GLOBAL.userdata.id}">{$GLOBAL.userdata.api_key}</a></td></tr>
+        {if !$GLOBAL.config.website.api.disabled}<tr><td>API Key: </td><td><a href="{$smarty.server.PHP_SELF}?page=api&action=getuserstatus&api_key={$GLOBAL.userdata.api_key}&id={$GLOBAL.userdata.id}">{$GLOBAL.userdata.api_key}</a></td></tr>{/if}
         <tr><td>E-Mail: </td><td><input type="text" name="email" value="{nocache}{$GLOBAL.userdata.email|escape}{/nocache}" size="20"></td></tr>
         <tr><td>Payment Address: </td><td><input type="text" name="paymentAddress" value="{nocache}{$smarty.request.paymentAddress|default:$GLOBAL.userdata.coin_address|escape}{nocache}" size="40"></td></tr>
         <tr><td>Donation %: </td><td><input type="text" id="donatePercent" name="donatePercent" value="{nocache}{$smarty.request.donatePercent|default:$GLOBAL.userdata.donate_percent|escape}{nocache}" size="4"><font size="2">Please help server expenses with a donation.</font></td></tr>
         <tr><td>Automatic Payout Threshold: </td><td valign="top"><input type="text" name="payoutThreshold" value="{$smarty.request.payoutThreshold|default:$GLOBAL.userdata.ap_threshold|escape}" size="5" maxlength="5"> <font size="1">[{$GLOBAL.config.ap_threshold.min}-{$GLOBAL.config.ap_threshold.max} {$GLOBAL.config.currency}. Set to '0' for no auto payout]</font></td></tr>
-        <tr><td>Anonymous Account: </td><td>
+        <tr><td>Anonymous Account <span id='tt'><img src='{$PATH}/images/questionmark.png' height='15px' width='15px' title='Will hide your username on the website for others. Only admins can still get your user information.'></span>:</td><td>
           <input type="checkbox" name="is_anonymous" value="1" id="is_anonymous" {if $GLOBAL.userdata.is_anonymous}checked{/if} />
           <label for="is_anonymous"></label>
         </td></tr>

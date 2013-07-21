@@ -96,22 +96,24 @@ $config['ap_threshold']['max'] = 250;
  * Website specific configuration settings
  *
  * Explanation:
- *   title         :  Website title used in master template
- *   name          :  The pool name, displayed in the header and mails
- *   slogan        :  A special slogan, also displayed in the header below name
- *   email         :  `From` addresses used in notifications
- *   theme         :  Theme used for desktop browsers
- *   mobile        :  Enable/Disable mobile theme support
- *   mobile_theme  :  Theme used for mobile browsers
+ *   title          :  Website title used in master template
+ *   name           :  The pool name, displayed in the header and mails
+ *   slogan         :  A special slogan, also displayed in the header below name
+ *   email          :  `From` addresses used in notifications
+ *   theme          :  Theme used for desktop browsers
+ *   mobile         :  Enable/Disable mobile theme support
+ *   mobile_theme   :  Theme used for mobile browsers
+ *   api disabled   :  Disable the sites API functions
  *
  * Defaults:
- *   title         =  `The Pool - Mining Evolved`
- *   name          =  `The Pool`
- *   slogan        =  `Resistance is futile`
- *   email         =  `test@example.com`
- *   theme         =  `mmcFE`
- *   mobile        =  true
- *   mobile_theme  =  `mobile`
+ *   title          =  `The Pool - Mining Evolved`
+ *   name           =  `The Pool`
+ *   slogan         =  `Resistance is futile`
+ *   email          =  `test@example.com`
+ *   theme          =  `mmcFE`
+ *   mobile         =  true
+ *   mobile_theme   =  `mobile`
+ *   api disbabled  =  false
  **/
 $config['website']['title'] = 'The Pool - Mining Evolved';
 $config['website']['name'] = 'The Pool';
@@ -120,6 +122,7 @@ $config['website']['email'] = 'test@example.com';
 $config['website']['theme'] = 'mmcFE';
 $config['website']['mobile'] = true;
 $config['website']['mobile_theme'] = 'mobile';
+$config['website']['api']['disabled'] = false;
 
 /**
  * Account specific settings
@@ -243,9 +246,10 @@ $config['payout_system'] = 'prop';
 $config['archive']['maxrounds'] = 10; 
 $config['archive']['maxage'] = 60 * 24; 
 
-// URL prefix for block searches, used for block links, default: `http://explorer.litecoin.net/search?q=`
-// If empty, the block link to the block information page will be removed
-$config['blockexplorer'] = 'http://explorer.litecoin.net/search?q=';
+// URL prefix for block searches, used for block links, default: `http://explorer.litecoin.net/block/`
+// The Blockhash is appended on the templates to this URL
+// If this config is empty, the block link to the block information page will be removed
+$config['blockexplorer'] = 'http://explorer.litecoin.net/block/';
 
 // Link to blockchain information, used for difficulty link, default: `http://allchains.info`
 // If empty, the difficulty link to the chain information will be removed
