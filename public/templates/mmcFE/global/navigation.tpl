@@ -47,6 +47,7 @@
             <li><a href="/?page=support">Support</a>
 	      <ul>
                 <li><a href="/?page=about&action=api">API Reference</a></li>
+		<li><a href="/?page=about&action=pplns">About PPLNS</a></li>
               </ul>
 
             </li>

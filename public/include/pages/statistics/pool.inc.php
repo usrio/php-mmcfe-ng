@@ -19,13 +19,13 @@ if (!$smarty->isCached('master.tpl', $smarty_cache_key)) {
   }
 
   // Top share contributors
-  $aContributorsShares = $statistics->getTopContributors('shares', 15);
+  $aContributorsShares = $statistics->getTopContributors('shares', 25);
 
   // Top hash contributors
-  $aContributorsHashes = $statistics->getTopContributors('hashes', 15);
+  $aContributorsHashes = $statistics->getTopContributors('hashes', 25);
 
   // Grab the last 10 blocks found
-  $iLimit = 5;
+  $iLimit = 15;
   $aBlocksFoundData = $statistics->getBlocksFound($iLimit);
   count($aBlocksFoundData) > 0 ? $aBlockData = $aBlocksFoundData[0] : $aBlockData = array();
 
