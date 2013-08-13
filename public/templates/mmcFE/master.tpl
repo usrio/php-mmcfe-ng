@@ -6,7 +6,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="favicon.ico" />
     <link rel="stylesheet" href="//anc.usr.io/min/?b=site_assets/mmcFE/css&f=mainstyle.css,style.css,jquery.wysiwyg.css,facebox.css,visualize.css,date_input.css" type="text/css" />
-    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+    <script src="{$PATH}/js/jquery-1.9.1.min.js"></script>
     <script src="//anc.usr.io/min/?b=site_assets/mmcFE/js&f=jquery.browser.js,jquery.tablesorter.min.js,jquery.tablesorter.pager.js,jquery.visualize.js,jquery.tooltip.visualize.js,custom.js,tools.js,addon.js"></script>
     <!--[if IE]><script type="text/javascript" src="{$PATH}/js/excanvas.js"></script><![endif]-->
     <!--[if lt IE 8]><style type="text/css" media="all">@import url("{$PATH}/css/ie.css");</style><![endif]-->

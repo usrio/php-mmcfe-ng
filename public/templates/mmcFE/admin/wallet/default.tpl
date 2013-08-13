@@ -16,5 +16,11 @@
     <th>Connections</th>
     <td class="right">{$CONNECT}</td>
   </tr>
+{if $NEWMINT >= 0}
+  <tr>
+    <th>PoS New Mint</th>
+    <td class="right">{$NEWMINT|number_format:"8"}</td>
+  </tr>
+{/if}
 </table>
 {include file="global/block_footer.tpl"}
