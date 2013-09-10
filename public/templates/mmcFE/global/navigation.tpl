@@ -8,6 +8,7 @@
                 <li><a href="/?page=account&action=transactions">Transactions</a></li>
                 <li><a href="/?page=account&action=notifications">Notifications</a></li>
                 {if !$GLOBAL.config.disable_invitations}<li><a href="/?page=account&action=invitations">Invitations</a></li>{/if}
+                <li><a href="{$smarty.server.PHP_SELF}?page=account&action=qrcode">QR Codes</a></li>
               </ul>
             </li>
             {/if}
@@ -29,20 +30,25 @@
                 <li><a href="/?page=statistics&action=pool">Pool Stats</a></li>
                 <li><a href="/?page=statistics&action=blocks">Block Stats</a></li>
                 <li><a href="/?page=statistics&action=graphs">Hashrate Graphs</a></li>
+                <li><a href="{$smarty.server.PHP_SELF}?page=statistics&action=round">Round Stats</a></li>
  		<li><a href="/?page=about&action=donors">Pool Donors</a></li>
               </ul>
             </li>
             {else}
             <li><a href="/?page=statistics">Statistics</a>
               <ul>
-            {if $GLOBAL.config.website.acl.statistics.pool == 'public'}
-                <li><a href="/?page=statistics&action=pool">Pool Stats</a></li>
+            {if $GLOBAL.acl.pool.statistics}
+                <li><a href="{$smarty.server.PHP_SELF}?page=statistics&action=pool">Pool Stats</a></li>
             {/if}
-            {if $GLOBAL.config.website.acl.statistics.blocks == 'public'}
-                <li><a href="/?page=statistics&action=blocks">Block Stats</a></li>
+            {if $GLOBAL.acl.block.statistics}
+                <li><a href="{$smarty.server.PHP_SELF}?page=statistics&action=blocks">Block Stats</a></li>
+            {/if}
+            {if $GLOBAL.acl.round.statistics}
+                <li><a href="{$smarty.server.PHP_SELF}?page=statistics&action=round">Round Stats</a></li>
             {/if}
               </ul>
             {/if}
+<<<<<<< HEAD
             <li><a href="/?page=gettingstarted">Getting Started</a></li>
             <li><a href="/?page=support">Support</a>
 	      <ul>
