@@ -48,7 +48,6 @@
             {/if}
               </ul>
             {/if}
-<<<<<<< HEAD
             <li><a href="/?page=gettingstarted">Getting Started</a></li>
             <li><a href="/?page=support">Support</a>
 	      <ul>
