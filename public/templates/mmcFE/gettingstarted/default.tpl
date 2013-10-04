@@ -17,7 +17,8 @@
 
 </ol>
 
-Set your miner to stratum+tcp://anc.usr.io:3333
+Set your miner to stratum+tcp://anc.usr.io:3333<br>
+If using i2p, use stratum+tcp://miner.anc.usr.i2p
 
 
 

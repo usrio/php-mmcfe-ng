@@ -1,3 +1,12 @@
+	{if $smarty.server.HTTPS eq "on"}
+		SSL Encrypted Session
+	{else}
+		{if $smarty.server.HTTP_HOST == "exspzlmu4jjf6ydrfq3jfapbdyd3ju5gall7lfkayqjmjfxaplyq.b32.i2p"}
+			i2p secure session
+		{else}
+			Warning Not Using SSL, you should <a href="https://anc.usr.io">Switch to SSL</a>
+		{/if}
+	{/if}
           <div id="siteinfo">{$GLOBAL.website.name|default:"The Pool"}<br/>
             <span class="slogan">{$GLOBAL.website.slogan|default:"Resistance is Futile"}</span>
           </div>

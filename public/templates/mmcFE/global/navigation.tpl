@@ -57,4 +57,5 @@
 
             </li>
             {if $smarty.session.AUTHENTICATED|default == 1}<li><a href="/?page=logout">Logout</a></li>{else}<li><a href="/?page=register">Register</a></li>{/if}
+		<li>&nbsp;<a style="display:inline" href="http://solavei4g.com" target=_new>Unlimited voice, text and data mobile service on a nationwide 4G network for $49/month</a></li>
           </ul>
