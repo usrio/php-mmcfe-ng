@@ -1,4 +1,6 @@
-{include file="global/block_header.tpl" BLOCK_HEADER="Getting Started Guide" BLOCK_STYLE="clear:none;"}
+<article class="module width_full">
+  <header><h3>Getting Started Guide</h3></header>
+  <div class="module_content">
     <li>1. <strong>Create account.</strong>
       <ul>
         <li>Register <a href="{$smarty.server.PHP_SELF}?page=register">here</a>, or login if you already have account</li>
@@ -42,4 +44,5 @@
         <li>Here's a great <a href="https://docs.google.com/document/d/1Gw7YPYgMgNNU42skibULbJJUx_suP_CpjSEdSi8_z9U/preview?sle=true">guide</a> how to get up and running with Xubuntu.</li>
       </ul>
     </li>
-{include file="global/block_footer.tpl"}
+  </div>
+</article>

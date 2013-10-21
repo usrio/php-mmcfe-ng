@@ -1,6 +1,6 @@
           <center>
             Anoncoin Pool using <a href="https://github.com/viperaus/stratum-mining">stratum-mining</a></br>
-            <a href="https://github.com/TheSerapher/php-mmcfe-ng">mmcfe-ng</a> Website based on mmcfe by <a href="https://bitcointalk.org/index.php?action=profile;u=19135">AnnihilaT</a>  overhauled by TheSerapher, available on <a href="https://github.com/TheSerapher/php-mmcfe-ng">GitHub</a><br/>
+            <a href="https://github.com/TheSerapher/php-mpos">mmcfe-ng</a> Website based on mmcfe by <a href="https://bitcointalk.org/index.php?action=profile;u=19135">AnnihilaT</a>  overhauled by TheSerapher, available on <a href="https://github.com/TheSerapher/php-mmcfe-ng">GitHub</a><br/>
             <br/><br/>
           </center>
 {literal}
