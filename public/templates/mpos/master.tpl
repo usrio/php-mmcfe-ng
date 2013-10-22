@@ -30,6 +30,17 @@
   <!--[if IE]><script type="text/javascript" src="{$PATH}/js/excanvas.js"></script><![endif]-->
 </head>
 <body>
+        <div id="ad" style="float:right;position:absolute;width:100%">
+        <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<!-- anc -->
+<ins class="adsbygoogle"
+     style="display:inline-block;width:728px;height:90px;float:right"
+     data-ad-client="ca-pub-3662181805557062"
+     data-ad-slot="5818871437"></ins>
+<script>
+(adsbygoogle = window.adsbygoogle || []).push({});
+</script>
+        </div>
 	<header id="header">
     {include file="global/header.tpl"}
 	</header>
