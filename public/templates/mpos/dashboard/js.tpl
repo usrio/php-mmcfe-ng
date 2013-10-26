@@ -91,7 +91,12 @@ $(document).ready(function(){
     g1 = new JustGage({id: "nethashrate", value: parseFloat(data.getdashboarddata.data.network.hashrate).toFixed(2), min: 0, max: Math.round(data.getdashboarddata.data.network.hashrate * 2), title: "Net Hashrate", gaugeColor: '#6f7a8a', valueFontColor: '#555', shadowOpacity : 0.8, shadowSize : 0, shadowVerticalOffset : 10, label: "{/literal}{$GLOBAL.hashunits.network}{literal}"});
     g2 = new JustGage({id: "poolhashrate", value: parseFloat(data.getdashboarddata.data.pool.hashrate).toFixed(2), min: 0, max: Math.round(data.getdashboarddata.data.pool.hashrate * 4), title: "Pool Hashrate", gaugeColor: '#6f7a8a', valueFontColor: '#555', shadowOpacity : 0.8, shadowSize : 0, shadowVerticalOffset : 10, label: "{/literal}{$GLOBAL.hashunits.pool}{literal}"});
     g3 = new JustGage({id: "hashrate", value: parseFloat(data.getdashboarddata.data.personal.hashrate).toFixed(2), min: 0, max: Math.round(data.getdashboarddata.data.personal.hashrate * 4), title: "Hashrate", gaugeColor: '#6f7a8a', valueFontColor: '#555', shadowOpacity : 0.8, shadowSize : 0, shadowVerticalOffset : 10, label: "{/literal}{$GLOBAL.hashunits.personal}{literal}"});
-    g4 = new JustGage({id: "sharerate", value: parseFloat(data.getdashboarddata.data.personal.sharerate).toFixed(2), min: 0, max: Math.round(data.getdashboarddata.data.personal.sharerate * 2), gaugeColor: '#6f7a8a', valueFontColor: '#555', shadowOpacity : 0.8, shadowSize : 0, shadowVerticalOffset : 10, title: "Sharerate", label: "shares/s"});
+    if (data.getdashboarddata.data.personal.sharerate > 1) {
+      initSharerate = data.getdashboarddata.data.personal.sharerate * 2
+    } else {
+      initSharerate = 1
+    }
+    g4 = new JustGage({id: "sharerate", value: parseFloat(data.getdashboarddata.data.personal.sharerate).toFixed(2), min: 0, max: Math.round(initSharerate), gaugeColor: '#6f7a8a', valueFontColor: '#555', shadowOpacity : 0.8, shadowSize : 0, shadowVerticalOffset : 10, title: "Sharerate", label: "shares/s"});
     g5 = new JustGage({id: "querytime", value: parseFloat(data.getdashboarddata.runtime).toFixed(0), min: 0, max: Math.round(data.getdashboarddata.runtime * 100), gaugeColor: '#6f7a8a', valueFontColor: '#555', shadowOpacity : 0.8, shadowSize : 0, shadowVerticalOffset : 10, title: "Querytime", label: "ms"});
   }
 
@@ -140,16 +145,27 @@ $(document).ready(function(){
     $('#b-hashrate').html((parseFloat(data.getdashboarddata.data.personal.hashrate).toFixed(2)));
     $('#b-sharerate').html((parseFloat(data.getdashboarddata.data.personal.sharerate).toFixed(2)));
     $('#b-yvalid').html(data.getdashboarddata.data.personal.shares.valid);
-    $('#b-yivalid').html(data.getdashboarddata.data.personal.shares.invalid);
-    $('#b-pvalid').html(data.getdashboarddata.data.pool.shares.valid);
-    $('#b-pivalid').html(data.getdashboarddata.data.pool.shares.invalid);
+    $('#b-yivalid').html(data.getdashboarddata.data.personal.shares.invalid + " (" + data.getdashboarddata.data.personal.shares.invalid_percent + "%)" );
+    $('#b-pvalid').html(data.getdashboarddata.data.pool.shares.valid + " (est: " + data.getdashboarddata.data.pool.shares.progress + "%)");
+    $('#b-pivalid').html(data.getdashboarddata.data.pool.shares.invalid + " (" + data.getdashboarddata.data.pool.shares.invalid_percent + "%)" );
     $('#b-diff').html(data.getdashboarddata.data.network.difficulty);
     $('#b-nblock').html(data.getdashboarddata.data.network.block);
+    {/literal}{if $GLOBAL.config.payout_system != 'pps'}{literal }
     $('#b-payout').html((parseFloat(data.getdashboarddata.data.personal.estimates.payout).toFixed(4)));
     $('#b-block').html((parseFloat(data.getdashboarddata.data.personal.estimates.block).toFixed(4)));
     $('#b-fee').html((parseFloat(data.getdashboarddata.data.personal.estimates.fee).toFixed(4)));
     $('#b-donation').html((parseFloat(data.getdashboarddata.data.personal.estimates.donation).toFixed(4)));
+{/literal}{else}{literal}
+    $('#b-ppsdiff').html((parseFloat(data.getdashboarddata.data.personal.sharedifficulty).toFixed(2)));
+    $('#b-est1').html((parseFloat(data.getdashboarddata.data.personal.estimates.hours1).toFixed(8)));
+    $('#b-est24hours').html((parseFloat(data.getdashboarddata.data.personal.estimates.hours24).toFixed(8)));
+    $('#b-est7days').html((parseFloat(data.getdashboarddata.data.personal.estimates.days7).toFixed(8)));
+    $('#b-est14days').html((parseFloat(data.getdashboarddata.data.personal.estimates.days14).toFixed(8)));
+    $('#b-est30days').html((parseFloat(data.getdashboarddata.data.personal.estimates.days30).toFixed(8)));
+{/literal}{/if}{literal}
+{/literal}{if $GLOBAL.config.payout_system == 'pplns'}{literal}
     $('#b-pplns').html({/literal}{$GLOBAL.pplns.target}{literal});
+{/literal}{/if}{literal}
   }
 
   // Refresh worker information
