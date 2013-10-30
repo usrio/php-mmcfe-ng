@@ -53,6 +53,50 @@ class Statistics {
   }
 
   /**
+   * Fetch last found blocks by time
+   **/
+  function getLastValidBlocksbyTime($aTimeFrame) {
+    $this->debug->append("STA " . __METHOD__, 4);
+    if ($data = $this->memcache->get(__FUNCTION__ . $aTimeFrame)) return $data;
+  	$date = new DateTime();
+  	$actualTime = $date->getTimestamp();
+  	$aTimeDiff = $actualTime - $aTimeFrame;
+  	if ($aTimeFrame == 0) $aTimeDiff = 0;
+    $stmt = $this->mysqli->prepare("
+      SELECT COUNT(id) AS count FROM " . $this->block->getTableName() . "
+      WHERE confirmations > 0 
+      AND time >= ?
+      ");
+      
+    if ($this->checkStmt($stmt) && $stmt->bind_param('i', $aTimeDiff) && $stmt->execute() && $result = $stmt->get_result())
+    	return $this->memcache->setCache(__FUNCTION__ . $aTimeFrame, $result->fetch_object()->count);
+    $this->debug->append("Failed to get valid Blocks by time: ". $this->mysqli->error);
+    return false;
+  }
+  
+  
+
+  function getLastOrphanBlocksbyTime($aTimeFrame) {
+    $this->debug->append("STA " . __METHOD__, 4);
+    if ($data = $this->memcache->get(__FUNCTION__ . $aTimeFrame)) return $data;
+  	$date = new DateTime();
+  	$actualTime = $date->getTimestamp();
+  	$aTimeDiff = $actualTime - $aTimeFrame;
+  	if ($aTimeFrame == 0) $aTimeDiff = 0;
+    $stmt = $this->mysqli->prepare("
+      SELECT COUNT(id) AS count FROM " . $this->block->getTableName() . "
+      WHERE confirmations = -1 
+      AND time >= ? 
+      ");
+      
+    if ($this->checkStmt($stmt) && $stmt->bind_param('i', $aTimeDiff) && $stmt->execute() && $result = $stmt->get_result())
+    	return $this->memcache->setCache(__FUNCTION__ . $aTimeFrame, $result->fetch_object()->count);
+    $this->debug->append("Failed to get orphan Blocks by time: ". $this->mysqli->error);
+    return false;
+  }
+  
+
+  /**
    * Get our last $limit blocks found
    * @param limit int Last limit blocks
    * @return array
@@ -687,6 +731,32 @@ class Statistics {
     }
     return $aEstimates;
   }
+
+  /**
+   * Get pool stats last 24 hours
+   * @param limit int Last number of hours
+   * @return array
+   **/
+  public function getPoolStatsHours($hour=24) {
+    $this->debug->append("STA " . __METHOD__, 4);
+    if ($data = $this->memcache->get(__FUNCTION__ . $hour)) return $data;
+    $stmt = $this->mysqli->prepare("
+      SELECT 
+      IFNULL(COUNT(id), 0) as count, 
+      IFNULL(AVG(difficulty), 0) as average,
+      IFNULL(ROUND(SUM((difficulty * 65536) / POW(2, (" . $this->config['difficulty'] . " -16))), 0), 0) AS expected,
+      IFNULL(ROUND(SUM(shares)), 0) as shares,
+      IFNULL(SUM(amount), 0) as rewards 
+      FROM " . $this->block->getTableName() . "
+      WHERE FROM_UNIXTIME(time) > DATE_SUB(now(), INTERVAL ? HOUR)
+      AND confirmations >= 1");
+    if ($this->checkStmt($stmt) && $stmt->bind_param("i", $hour) && $stmt->execute() && $result = $stmt->get_result())
+      return $this->memcache->setCache(__FUNCTION__ . $hour, $result->fetch_assoc());
+    // Catchall
+    $this->debug->append("Failed to get pool statistics:" . $this->mysqli->error);
+    return false;
+  }
+
 }
 
 
