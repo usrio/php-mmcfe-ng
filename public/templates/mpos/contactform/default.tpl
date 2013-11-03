@@ -1,6 +1,7 @@
 <form action="{$smarty.server.PHP_SELF}" method="post">
   <input type="hidden" name="page" value="{$smarty.request.page|escape}">
   <input type="hidden" name="action" value="contactform">
+  <input type="hidden" name="senderUsername" value="{$GLOBAL.userdata.username|escape}">
     <article class="module width_3_quarter">
     <header><h3>Contact Us</h3></header>
     <div class="module_content">
@@ -10,7 +11,7 @@
       </fieldset>
       <fieldset>
         <label for="senderEmail">Your Email Address</label>
-        <input type="text" class="text tiny" name="senderEmail" value="{$smarty.request.senderEmail|escape|default:""}" placeholder="Please type your email" size="15"  maxlength="20" required />
+        <input type="text" class="text tiny" name="senderEmail" value="{$smarty.request.senderEmail|escape|default:$GLOBAL.userdata.email}" placeholder="Please type your email" size="15"  maxlength="20" required />
       </fieldset>
       <fieldset>
         <label for="senderEmail">Your Subject</label>

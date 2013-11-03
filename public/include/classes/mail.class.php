@@ -25,7 +25,7 @@ class Mail extends Base {
   * @param subject string header subject
   * @return bool
   **/
-  public function contactform($senderName, $senderEmail, $senderSubject, $senderMessage) {
+  public function contactform($senderName, $senderEmail, $senderSubject, $senderMessage, $senderUsername) {
     $this->debug->append("STA " . __METHOD__, 4);
     if (preg_match('/[^a-z_\.\!\?\-0-9\\s ]/i', $senderName)) {
       $this->setErrorMessage('Username may only contain alphanumeric characters');
@@ -47,6 +47,7 @@ class Mail extends Base {
     $aData['senderEmail'] = $senderEmail;
     $aData['senderSubject'] = $senderSubject;
     $aData['senderMessage'] = $senderMessage;
+    $aData['senderUsername'] = $senderUsername;
     $aData['email'] = $this->setting->getValue('website_email');
     $aData['subject'] = 'Contact From';
       if ($this->sendMail('contactform/body', $aData)) {
@@ -64,6 +65,8 @@ class Mail extends Base {
     $this->smarty->assign('DATA', $aData);
     $headers = 'From: anc.usr.io pool <' . $this->setting->getValue('website_email') . ">\n";
     $headers .= "MIME-Version: 1.0\n";
+    $replyto = isset($aData['senderEmail'])?$aData['senderEmail']:$this->setting->getValue('website_email');
+    $headers .= "Reply-To:" . $replyto . "\n";
     $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
     if (mail($aData['email'], $this->smarty->fetch(BASEPATH . 'templates/mail/subject.tpl'), $this->smarty->fetch(BASEPATH . 'templates/mail/' . $template  . '.tpl'), $headers))
       return true;
