@@ -68,6 +68,7 @@ $aGlobal = array(
     'accounts' => $config['accounts'],
     'disable_invitations' => $setting->getValue('disable_invitations'),
     'disable_notifications' => $setting->getValue('disable_notifications'),
+    'monitoring_uptimerobot_private_key' => $setting->getValue('monitoring_uptimerobot_private_key'),
     'statistics_ajax_refresh_interval' => $statistics_ajax_refresh_interval,
     'price' => array( 'currency' => $config['price']['currency'] ),
     'targetdiff' => $config['difficulty'],
@@ -96,6 +97,7 @@ $setting->getValue('website_chaininfo_url') ? $aGlobal['website']['chaininfo']['
 $aGlobal['acl']['pool']['statistics'] = $setting->getValue('acl_pool_statistics');
 $aGlobal['acl']['block']['statistics'] = $setting->getValue('acl_block_statistics');
 $aGlobal['acl']['round']['statistics'] = $setting->getValue('acl_round_statistics');
+$aGlobal['acl']['uptime']['statistics'] = $setting->getValue('acl_uptime_statistics');
 
 // We don't want these session infos cached
 if (@$_SESSION['USERDATA']['id']) {
@@ -165,5 +167,6 @@ $smarty->assign('DEBUG', DEBUG);
 
 // Make it available in Smarty
 $smarty->assign('PATH', 'site_assets/' . THEME);
+$smarty->assign('GLOBALASSETS', 'site_assets/global');
 $smarty->assign('GLOBAL', $aGlobal);
 ?>
